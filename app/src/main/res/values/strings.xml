@@ -26,4 +26,5 @@
     <string name="password">Password</string>
     <string name="welcome_nback">Welcome\nBack</string>
     <string name="detail_title_page">Detail</string>
+    <string name="post">Post</string>
 </resources>

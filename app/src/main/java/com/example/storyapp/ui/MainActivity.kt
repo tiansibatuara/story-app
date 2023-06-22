@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -72,7 +73,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.actionLogout.setOnClickListener {
-            authViewModel.removeAuthSetting()
+            AlertDialog.Builder(this).apply {
+                setTitle("Logout")
+                setMessage("Are you sure you want to logout?")
+                setPositiveButton("Yes") { _, _ ->
+                    authViewModel.removeAuthSetting()
+                }
+                setNegativeButton("No") { dialog, _ ->
+                    dialog.cancel()
+                }
+                create()
+                show()
+            }
         }
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {

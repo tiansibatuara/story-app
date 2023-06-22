@@ -85,7 +85,6 @@ class StoryActivity : AppCompatActivity() {
             )
         }
         binding.cameraXButton.setOnClickListener { startCameraX() }
-        binding.cameraButton.setOnClickListener { startTakePhoto() }
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.ibBack.setOnClickListener { finish() }
 
@@ -166,7 +165,7 @@ class StoryActivity : AppCompatActivity() {
                 }
             })
         } else {
-            Toast.makeText(this@StoryActivity, "Silahkan masukkan gambar / deskripsi dahulu.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@StoryActivity, "Silahkan masukkan gambar / deskripsi terlebih dahulu.", Toast.LENGTH_SHORT).show()
         }
     }
 

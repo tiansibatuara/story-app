@@ -16,7 +16,9 @@ import com.example.storyapp.data.response.LoginResponse
 import com.example.storyapp.databinding.ActivityLoginBinding
 import com.example.storyapp.models.AuthViewModel
 import com.example.storyapp.ui.register.RegisterActivity
+import com.example.storyapp.utils.UserModel
 import com.example.storyapp.utils.UserPreferences
+import com.example.storyapp.utils.UserSharedPreferences
 import com.example.storyapp.utils.ViewModelFactory
 import retrofit2.Call
 import retrofit2.Callback
@@ -65,6 +67,11 @@ class LoginActivity : AppCompatActivity() {
                     )
 
                     authViewModel.saveAuthSetting(responseBody.loginResult.name!!, responseBody.loginResult.userId!!, responseBody.loginResult.token!!)
+
+                    val userSharedPreference = UserSharedPreferences(application)
+                    val user = UserModel(responseBody.loginResult.name!!, responseBody.loginResult.token!!,true)
+                    userSharedPreference.setUser(user)
+
                     showLoading(false)
                     Toast.makeText(this@LoginActivity, "Login Success!", Toast.LENGTH_SHORT).show()
 
@@ -73,6 +80,7 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
+
                     showLoading(false)
                     Toast.makeText(this@LoginActivity, "Invalid credentials!", Toast.LENGTH_SHORT).show()
                 }

@@ -24,6 +24,7 @@ import com.example.storyapp.data.response.FileUploadResponse
 import com.example.storyapp.data.source.local.ApiConfig
 import com.example.storyapp.databinding.ActivityStoryBinding
 import com.example.storyapp.models.AuthViewModel
+import com.example.storyapp.ui.MainActivity
 import com.example.storyapp.utils.UserPreferences
 import com.example.storyapp.utils.ViewModelFactory
 import okhttp3.MediaType.Companion.toMediaType
@@ -86,7 +87,10 @@ class StoryActivity : AppCompatActivity() {
         }
         binding.cameraXButton.setOnClickListener { startCameraX() }
         binding.galleryButton.setOnClickListener { startGallery() }
-        binding.ibBack.setOnClickListener { finish() }
+        binding.ibBack.setOnClickListener {
+            val backIntent = Intent(this@StoryActivity, MainActivity::class.java)
+            startActivity(backIntent)
+        }
 
         val pref = UserPreferences.getInstance(dataStore)
         val authViewModel = ViewModelProvider(
@@ -154,7 +158,8 @@ class StoryActivity : AppCompatActivity() {
                         val responseBody = response.body()
                         if (responseBody != null && !responseBody.error) {
                             Toast.makeText(this@StoryActivity, responseBody.message, Toast.LENGTH_SHORT).show()
-                            finish()
+                            val uploadIntent = Intent(this@StoryActivity, MainActivity::class.java)
+                            startActivity(uploadIntent)
                         }
                     } else {
                         Toast.makeText(this@StoryActivity, response.message(), Toast.LENGTH_SHORT).show()
